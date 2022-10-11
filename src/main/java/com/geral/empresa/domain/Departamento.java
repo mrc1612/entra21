@@ -24,7 +24,7 @@ public class Departamento implements Serializable{
     @Length(min=5, max=255, message="Campo NM_DEPTO deve ter entre 5 e 255 caracteres!")
     private String nm_depto;
 
-    @OneToMany(mappedBy = "departamento")
+    @OneToMany(mappedBy = "departamento_pai")
     private List<Funcionario> funcionarios = new ArrayList<>();
     
     public Departamento() {

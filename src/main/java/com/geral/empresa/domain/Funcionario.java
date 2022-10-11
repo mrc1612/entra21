@@ -24,7 +24,7 @@ public class Funcionario implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "id_depto")
-    private Departamento departamento;
+    private Departamento departamento_pai;
 
     public Funcionario() {
     }
@@ -34,7 +34,7 @@ public class Funcionario implements Serializable{
             Departamento departamento) {
         this.id_funcionario = id_funcionario;
         this.nm_funcionario = nm_funcionario;
-        this.departamento = departamento;
+        this.departamento_pai = departamento;
     }
 
     public Integer getId_funcionario() {
@@ -54,11 +54,11 @@ public class Funcionario implements Serializable{
     }
 
     public Departamento getDepartamento() {
-        return departamento;
+        return departamento_pai;
     }
 
     public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+        this.departamento_pai = departamento;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Funcionario implements Serializable{
         int result = 1;
         result = prime * result + ((id_funcionario == null) ? 0 : id_funcionario.hashCode());
         result = prime * result + ((nm_funcionario == null) ? 0 : nm_funcionario.hashCode());
-        result = prime * result + ((departamento == null) ? 0 : departamento.hashCode());
+        result = prime * result + ((departamento_pai == null) ? 0 : departamento_pai.hashCode());
         return result;
     }
 
@@ -90,10 +90,10 @@ public class Funcionario implements Serializable{
                 return false;
         } else if (!nm_funcionario.equals(other.nm_funcionario))
             return false;
-        if (departamento == null) {
-            if (other.departamento != null)
+        if (departamento_pai == null) {
+            if (other.departamento_pai != null)
                 return false;
-        } else if (!departamento.equals(other.departamento))
+        } else if (!departamento_pai.equals(other.departamento_pai))
             return false;
         return true;
     }
