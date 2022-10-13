@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Projeto implements Serializable{
 
@@ -23,9 +25,10 @@ public class Projeto implements Serializable{
     @ManyToMany
     @JoinTable(
         name="projeto_pessoa",
-        joinColumns = {@JoinColumn(name="id_projeto")},
-        inverseJoinColumns = {@JoinColumn(name="id_pessoa")}
+        joinColumns = @JoinColumn(name="id_projeto"),
+        inverseJoinColumns = @JoinColumn(name="id_pessoa")
     )
+    @JsonIgnore
     private List<Pessoa> pessoas_projeto = new ArrayList<>();
 
     public Projeto(Integer id_projeto, String nm_projeto) {
@@ -74,6 +77,12 @@ public class Projeto implements Serializable{
         } else if (!nm_projeto.equals(other.nm_projeto))
             return false;
         return true;
+    }
+    public List<Pessoa> getPessoas_projeto() {
+        return pessoas_projeto;
+    }
+    public void setPessoas_projeto(List<Pessoa> pessoas_projeto) {
+        this.pessoas_projeto = pessoas_projeto;
     }
     
 }

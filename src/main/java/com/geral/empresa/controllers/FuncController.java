@@ -43,6 +43,12 @@ public class FuncController {
         return ResponseEntity.ok().body(funcionario);
     }
 
+    @GetMapping(value="/nome/{nome}")
+    public ResponseEntity<List<Funcionario>> findAllByName(@PathVariable String nome) {
+        List<Funcionario> funcionarios = fRepository.findAllByName(nome);
+        return ResponseEntity.ok().body(funcionarios);
+    }
+
     @GetMapping("/maxId")
     public ResponseEntity<Integer> getMaxId() {
         Integer maxId = fRepository.getMaxId();

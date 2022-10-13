@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pessoa implements Serializable{
 
@@ -19,6 +21,7 @@ public class Pessoa implements Serializable{
     private String nm_pessoa;
     
     @ManyToMany(mappedBy = "pessoas_projeto")
+    @JsonIgnore
     private List<Projeto> projetos_pessoa = new ArrayList<>();
 
     public Pessoa(Integer id_pessoa, String nm_pessoa) {
@@ -67,6 +70,12 @@ public class Pessoa implements Serializable{
         } else if (!nm_pessoa.equals(other.nm_pessoa))
             return false;
         return true;
+    }
+    public List<Projeto> getProjetos_pessoa() {
+        return projetos_pessoa;
+    }
+    public void setProjetos_pessoa(List<Projeto> projetos_pessoa) {
+        this.projetos_pessoa = projetos_pessoa;
     }
 
     

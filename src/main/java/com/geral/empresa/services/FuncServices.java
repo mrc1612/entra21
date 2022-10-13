@@ -62,4 +62,9 @@ public class FuncServices {
             throw new com.geral.empresa.exceptions.EmptyResultDataAccessException("Funcionário "+pId+" não existe!");
         }
     }
+
+    public boolean validaUsuario(String pUsuario, String pSenha) {
+        //Verifica se pSenha é a correta de pUsuario
+        return false;
+    }
 }
