@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,7 +27,11 @@ public class Projeto implements Serializable{
     @JoinTable(
         name="projeto_pessoa",
         joinColumns = @JoinColumn(name="id_projeto"),
-        inverseJoinColumns = @JoinColumn(name="id_pessoa")
+        inverseJoinColumns = @JoinColumn(name="id_pessoa"),
+        uniqueConstraints = @UniqueConstraint(
+            name="projeto_pessoa_PK",
+            columnNames = {"id_projeto","id_pessoa"}
+        )
     )
     @JsonIgnore
     private List<Pessoa> pessoas_projeto = new ArrayList<>();

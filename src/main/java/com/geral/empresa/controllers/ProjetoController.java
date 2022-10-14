@@ -30,18 +30,24 @@ public class ProjetoController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @GetMapping
+    public ResponseEntity<List<Projeto>> findAll() {
+        List<Projeto> projetos = projetoRepository.findAll();
+        return ResponseEntity.ok().body(projetos);
+    }
+
+    @GetMapping(value = "/{id}/pessoas")
+    public ResponseEntity<List<Pessoa>> findPessoasByProjeto(@Valid @PathVariable Integer id) {
+        List<Pessoa> pessoas = pessoaRepository.findByProjeto(id);
+        return ResponseEntity.ok().body(pessoas);
+    }
+
     @PostMapping
     public ResponseEntity<Projeto> insProjeto(@Valid @RequestBody Projeto pProjeto) {
         pProjeto.setId_projeto(null);
         projetoRepository.save(pProjeto);
         URI vUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pProjeto.getId_projeto()).toUri();
         return ResponseEntity.created(vUri).body(pProjeto);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Projeto>> findAll() {
-        List<Projeto> projetos = projetoRepository.findAll();
-        return ResponseEntity.ok().body(projetos);
     }
 
     @PostMapping(value = "{id_projeto}/pessoa/{id_pessoa}")
@@ -62,7 +68,6 @@ public class ProjetoController {
         projetoRepository.save(projeto);
         return ResponseEntity.noContent().build();
     }
-
 
     @DeleteMapping(value = "{id_projeto}/pessoa/{id_pessoa}")
     public ResponseEntity<Void> delProjetoPessoa(@Valid @PathVariable Integer id_projeto, @Valid @PathVariable Integer id_pessoa) {
