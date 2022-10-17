@@ -65,7 +65,11 @@ public class ProjetoController {
             );
         pessoas.add(pessoa);
         projeto.setPessoas_projeto(pessoas);
-        projetoRepository.save(projeto);
+        try {
+            projetoRepository.save(projeto);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new com.geral.empresa.exceptions.DataIntegrityViolationException("Projeto "+id_projeto+" já está alocado para pessoa "+id_pessoa+" !");
+        }
         return ResponseEntity.noContent().build();
     }
 
